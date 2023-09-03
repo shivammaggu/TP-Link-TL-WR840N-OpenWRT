@@ -61,14 +61,14 @@
 ## Fix broken Firmware Upgrade (Alternating red and green LED blinking on router / No Web Interface / No SSH / Bricked Router)
 
 1. Setup TFTP on your PC (Refer _Setup TFTP on Windows/Mac/Linux_ link from the [References](#references) section.)
-2. Adding TFTP setup for Linux here as I restored by Router on a Linux Machine.
-2.1. Install atftpd. `sudo apt install atftpd`
-2.2. Create a dir for saving the image to upload to router. `sudo mkdir /srv/tftp`
-2.3. Download the tftp recovery image for TL-WR840N v5. Image is added in the Firmwares folder.
-2.4. Rename the image to `tp_recovery.bin` and copy it to the dir created above. `sudo cp /path/to/firmware/tp_recovery.bin /srv/tftp`
-2.5. Change the ownership of the folder and file inside. `chown nobody:nogroup -R /srv/tftp`
-2.6. Start the tftp server. `atftpd --daemon --no-fork --logfile - /srv/tftp`
-2.7. Check if the tftp server is listening. `netstat -lunp | grep 69`
+2. Adding TFTP setup for Linux here as I restored my Router on a Linux Machine.
+   - Install atftpd. `sudo apt install atftpd`
+   - Create a dir for saving the image to upload to router. `sudo mkdir /srv/tftp`
+   - Download the tftp recovery image for TL-WR840N v5. Image is added in the Firmwares folder.
+   - Rename the image to `tp_recovery.bin` and copy it to the dir created above. `sudo cp /path/to/firmware/tp_recovery.bin /srv/tftp`
+   - Change the ownership of the folder and file inside. `chown nobody:nogroup -R /srv/tftp`
+   - Start the tftp server. `atftpd --daemon --no-fork --logfile - /srv/tftp`
+   - Check if the tftp server is listening. `netstat -lunp | grep 69`
 3. Set computer ethernet static IP to `192.168.0.66` (Edit the `/etc/dhcpcd.conf` and `systemctl restart dhcpcd`)
 4. Connect Router and PC via ethernet cable.
 5. Turn off router. Press and hold the reset button and turn on router. (VERY IMPORTANT❗️)
@@ -78,11 +78,11 @@
 9. SSH into the router. `ssh root@192.168.1.1`
 10. Now from here if you want to go to original firmware, follow the steps in [Restore from OpenWRT Firmware to Official Firmware](#restore-from-openwrt-firmware-to-official-firmware) section.
 11. If you want to roll back to the working OpenWRT firmware, follow the steps below.
-11.1. SSH into the router. `ssh root@192.168.1.1`
-11.2. Check for free memory. Memory should equal to or more than the size of firmware image. `free`
-11.3. Download the working copy of OpenWRT Firmware for TL-WR840N v5. Image is added in the Firmwares folder.
-11.4. Copy the image to the router. `ssh root@192.168.1.1 "cat > /tmp/openwrt-18.06.9-ramips-mt76x8-tl-wr840n-v5-squashfs-sysupgrade.bin" < /path/to/firmware/openwrt-18.06.9-ramips-mt76x8-tl-wr840n-v5-squashfs-sysupgrade.bin`
-11.5. Flash the image using sysupgrade. `sysupgrade -v /tmp/openwrt-18.06.9-ramips-mt76x8-tl-wr840n-v5-squashfs-sysupgrade.bin`
+    - SSH into the router. `ssh root@192.168.1.1`
+    - Check for free memory. Memory should equal to or more than the size of firmware image. `free`
+    - Download the working copy of OpenWRT Firmware for TL-WR840N v5. Image is added in the Firmwares folder.
+    - Copy the image to the router. `ssh root@192.168.1.1 "cat > /tmp/openwrt-18.06.9-ramips-mt76x8-tl-wr840n-v5-squashfs-sysupgrade.bin" < /path/to/firmware/openwrt-18.06.9-ramips-mt76x8-tl-wr840n-v5-squashfs-sysupgrade.bin`
+    - Flash the image using sysupgrade. `sysupgrade -v /tmp/openwrt-18.06.9-ramips-mt76x8-tl-wr840n-v5-squashfs-sysupgrade.bin`
 12. Wait for the router to finish the flashing process. Indicated by the blinking LEDs.
 13. Now the router should be restored to the OpenWRT defaults.
 
